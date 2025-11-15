@@ -19,5 +19,10 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      "quotes": ["error", "double"],
+      "semi": ['error', 'always'],
+      "indent": ["warn", 2],
+    },
   },
 ])
