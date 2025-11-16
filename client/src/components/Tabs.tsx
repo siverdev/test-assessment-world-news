@@ -1,9 +1,9 @@
-import type { Tab } from "../types/news";
+import type { NewsCategory, Tab } from "../types/news";
 
-const categories = [
+const categories: NewsCategory[] = [
+  "general",
   "business",
   "entertainment",
-  "general",
   "health",
   "science",
   "sports",

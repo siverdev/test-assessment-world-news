@@ -22,3 +22,12 @@ export type NewsResponse = {
   currentPage?: number,
   nextPage?: number | null
 }
+
+export type NewsCategory =
+  | "general"
+  | "business"
+  | "entertainment"
+  | "health"
+  | "science"
+  | "sports"
+  | "technology";
