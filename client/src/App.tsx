@@ -45,11 +45,12 @@ function App() {
           </div>
         )}
 
-        {error && (
+        {(error || data?.error) && (
           <div className="col-span-full text-center text-red-500 text-lg md:text-xl font-semibold">
-            Something went wrong.
+            {data?.error?.message ||  "Something went wrong. Try again later"}
           </div>
         )}
+
 
         {!isLoading && data?.pages?.every(page => page.articles.length === 0) && (
           <p className="col-span-full text-center text-gray-500 text-lg md:text-xl">
