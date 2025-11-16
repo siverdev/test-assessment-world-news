@@ -21,7 +21,7 @@ PORT=5000
 API_BASE_URL=https://newsapi.org/v2/top-headlines
 API_KEY=your_api_key_here
 ```
-(project uses NewsAPI. Provide ```https://newsapi.org/v2/top-headlines``` as the base url)
+(project uses NewsAPI. Provide ```https://newsapi.org/v2/top-headlines``` as the base url. Keep in mind that NewsAPI free plan has a limit: 100 requests per day and 50 requests per 12h)
 
 4. Start the backend server
 ```bash
