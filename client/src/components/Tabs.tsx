@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import type { Tab } from "../types/news";
 
 const categories = [
   "business",
@@ -10,13 +10,12 @@ const categories = [
   "technology",
 ]; 
 
-export default function Tabs() {
-  const [activeTab, setActiveTab] = useState("all");
+type TabsProps = {
+  activeTab: Tab;
+  changeTab: (tab: Tab) => void;
+}
 
-  const changeTab = (tab) => {
-    setActiveTab(tab);
-  };
-
+export default function Tabs({activeTab, changeTab}: TabsProps) {
   return(
     <div className="flex flex-wrap justify-center gap-3 mb-6">
       {categories.map((category) => (

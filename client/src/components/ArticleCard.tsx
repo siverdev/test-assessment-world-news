@@ -1,15 +1,14 @@
-const article = {
-  source: { id: "nbc-news", name: "NBC News" },
-  author: "Mirna Alsharif, Steve Strouss, Erick Mendoza",
-  title: "Search for missing 5-year-old swept into Pacific Ocean continues as southern California braces for devastating rain - NBC News",
-  description: "The desperate search for a 5-year-old girl who was swept into the Pacific Ocean Friday as her father drowned attempting to save her continues while southern California braces for more heavy rainfall that could bring life-threatening floods to the region",
-  url: "https://www.nbcnews.com/weather/storms/california-flooding-rain-storm-rcna244092",
-  urlToImage: "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/rockcms/2025-11/251115-storm-ch-1116-3bc803.jpg",
-  publishedAt: "2025-11-15T17:12:25Z",
-  content: "The desperate search for a 5-year-old girl who was swept into the Pacific Ocean Friday as her father drowned attempting to save her continues while southern California braces for more heavy rainfall … [+3872 chars]"
+import type { Article } from "../types/news";
+import noImage from "../assets/no-image.jpg";
+import { useState } from "react";
+
+type ArticleCardProps = {
+  article: Article
 };
 
-export default function ArticleCard() {
+export default function ArticleCard({article}: ArticleCardProps) {
+  const [imgSrc, setImgSrc] = useState<string>(article.urlToImage || noImage);
+
   return (
     <a
       href={article.url}
@@ -18,8 +17,9 @@ export default function ArticleCard() {
       className="block max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <img
-        src={article.urlToImage}
+        src={imgSrc}
         alt={article.title}
+        onError={() => setImgSrc(noImage)}
         className="w-full h-48 object-cover"
       />
       <div className="p-6">
