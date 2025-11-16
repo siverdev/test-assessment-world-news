@@ -36,10 +36,23 @@ export async function getNews(req: Request, res: Response): Promise<Response>  {
         const articles = data?.articles;
        
         if (!articles || articles.length === 0) {
-            return res.status(200).json([]);
+            return res.status(200).json({
+                error: false,
+                message: "No news found",
+                articles
+            });
         }
 
-        return res.status(200).json(articles)
+        return res
+          .status(200)
+          .json({
+            error: false,
+            message: "News successfully fetched",
+            articles,
+            currentPage: page,
+            nextPage: articles.length > 0 ? Number(page) + 1 : null, //comparing to 0 here because newsapi pageSize acts as an upper 
+          });                                                        //limit and doesn't always return the exact pageSize amnt of articles
+                                                                     //  per page
     } catch (err: any) {
         console.error(err);
         

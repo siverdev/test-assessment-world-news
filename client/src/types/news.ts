@@ -12,5 +12,13 @@ export type Article = {
   content: string | null;
 };
 
-
 export type Tab = string | undefined;
+
+
+export type NewsResponse = {
+  error: boolean,
+  message: string,
+  articles?: Article[],
+  currentPage?: number,
+  nextPage?: number | null
+}

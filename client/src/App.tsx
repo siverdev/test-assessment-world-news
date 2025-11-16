@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import ArticleCard from "./components/ArticleCard";
 import Tabs from "./components/Tabs";
 import "./index.css";
-import { useNews } from "./services/queries";
+import { useInfiniteNews } from "./services/queries";
 import type { Tab } from "./types/news";
 import SearchBar from "./components/SearchBar";
+import { useInView } from "react-intersection-observer";
 
 
 function App() {
@@ -12,7 +13,13 @@ function App() {
   const [searchValue, setSearchValue] = useState<string>("");
   const [submittedSeachValue, setSubmittedSearchValue] = useState<string | undefined>(undefined);
 
-  const { data, isLoading, error } = useNews(activeTab, submittedSeachValue);
+  const {ref, inView} = useInView();
+
+  const { data, isLoading, error, fetchNextPage, isFetchingNextPage } = useInfiniteNews(activeTab, submittedSeachValue);
+
+  useEffect(() => {
+    if (inView) fetchNextPage();
+  }, [fetchNextPage, inView]);
 
   const changeTab = (tab: Tab) => {
     setActiveTab(tab);
@@ -44,14 +51,26 @@ function App() {
           </div>
         )}
 
-        {data && data.length === 0 && (
-          <p className="col-span-full text-center text-gray-500 text-lg md:text-xl">No articles found</p>
+        {!isLoading && data?.pages?.every(page => page.articles.length === 0) && (
+          <p className="col-span-full text-center text-gray-500 text-lg md:text-xl">
+            No articles found
+          </p>
         )}
 
-        {data?.length > 0 && data.map((article, i) => (
-          <ArticleCard key={i} article={article}/>
-        ))}
-       
+        {data?.pages?.map((page) =>
+          page.articles.map((article, i) => (
+            <ArticleCard key={i} article={article} />
+          ))
+        )}
+
+        <div className="col-span-full text-center" ref={ref}>{
+          isFetchingNextPage &&
+          (<div className="text-gray-500 text-lg md:text-xl animate-pulse">
+            Loading news...
+          </div>
+          )}
+        </div>
+
       </div>
     </div>
   );
