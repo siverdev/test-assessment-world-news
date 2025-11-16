@@ -52,7 +52,7 @@ export async function getNews(req: Request, res: Response): Promise<Response>  {
             currentPage: page,
             nextPage: articles.length > 0 ? Number(page) + 1 : null, //comparing to 0 here because newsapi pageSize acts as an upper 
           });                                                        //limit and doesn't always return the exact pageSize amnt of articles
-                                                                     //  per page
+                                                                     //per page
     } catch (err: any) {
         console.error(err);
         
