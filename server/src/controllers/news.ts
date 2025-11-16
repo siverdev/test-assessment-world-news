@@ -5,7 +5,9 @@ import { allowedCategories, isValidCategory } from "../lib/validation.ts";
 
 export async function getNews(req: Request, res: Response): Promise<Response>  {
     try {
-        const category = (req.query.category as string) || "all";
+        const category = (req.query.category as string) || "general";
+        const search = (req.query.search as string) || undefined;
+        const page = (req.query.page as string) || "1";
 
         //Category validation
         if (!isValidCategory(category)) {
@@ -18,11 +20,14 @@ export async function getNews(req: Request, res: Response): Promise<Response>  {
         //Params
         const params = new URLSearchParams({
             language: "en",
+            category,
             apiKey: process.env.API_KEY || "",
+            page,
+            pageSize: "16"
         });
 
-        if (category && category !== "all") {
-            params.append("category", category);
+        if(search){
+            params.append("q", search)
         }
 
         //API call
@@ -30,12 +35,11 @@ export async function getNews(req: Request, res: Response): Promise<Response>  {
 
         const articles = data?.articles;
        
-        if (!articles) {
-            return res.status(404)
-                .json({ error: false, message: "News not found" });
+        if (!articles || articles.length === 0) {
+            return res.status(200).json([]);
         }
 
-        return res.status(200).json({"error": false, "message": "News successfully fetched", articlesCount: articles.length, articles})
+        return res.status(200).json(articles)
     } catch (err: any) {
         console.error(err);
         

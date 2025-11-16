@@ -1,14 +1,12 @@
 import type { Article } from "../types/news";
 import noImage from "../assets/no-image.jpg";
-import { useState } from "react";
 
 type ArticleCardProps = {
   article: Article
 };
 
 export default function ArticleCard({article}: ArticleCardProps) {
-  const [imgSrc, setImgSrc] = useState<string>(article.urlToImage || noImage);
-
+ 
   return (
     <a
       href={article.url}
@@ -17,9 +15,9 @@ export default function ArticleCard({article}: ArticleCardProps) {
       className="block max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <img
-        src={imgSrc}
+        src={article.urlToImage || noImage}
         alt={article.title}
-        onError={() => setImgSrc(noImage)}
+        onError={(e) => e.currentTarget.src=noImage}
         className="w-full h-48 object-cover"
       />
       <div className="p-6">

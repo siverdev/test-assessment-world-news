@@ -5,10 +5,11 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL
 });
 
-export const getNews = async (tab: Tab) => {
+export const getNews = async (tab: Tab, search?: string) => {
   const res = await axiosInstance.get<Article[]>("news", {
     params: {
-      category: tab
+      category: tab,
+      ...(search ? {search} : {})
     },
   });
   return res.data;

@@ -26,7 +26,7 @@ export default function Tabs({activeTab, changeTab}: TabsProps) {
             px-4 py-2 rounded-xl font-medium transition-all duration-200
             ${
         activeTab === category
-          ? "bg-blue-500 text-white shadow-lg"
+          ? "bg-gray-100 text-blue-600"
           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
         }
           `}

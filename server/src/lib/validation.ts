@@ -6,7 +6,6 @@ export const allowedCategories = [
     "science",
     "sports",
     "technology",
-    "all"
 ] 
 
 
