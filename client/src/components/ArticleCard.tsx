@@ -33,8 +33,8 @@ export default function ArticleCard({article}: ArticleCardProps) {
         </h3>
 
         <p className="mt-2 text-gray-700 text-sm  flex-1">
-          {(article.description || article.content)?.slice(0, 160)}
-          {(article.description || article.content)?.length > 160 ? "..." : ""}
+          {(article.description || article.content)?.slice(0, 140)}
+          {(article.description || article.content)?.length > 140 ? "..." : ""}
         </p>
 
         <div className="mt-4 flex justify-between items-center text-gray-500 text-xs">

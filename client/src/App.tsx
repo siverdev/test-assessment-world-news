@@ -15,7 +15,7 @@ function App() {
 
   const {ref, inView} = useInView();
 
-  const { data, isLoading, error, fetchNextPage, isFetchingNextPage } = useInfiniteNews(activeTab, submittedSeachValue);
+  const { data, isLoading, error, fetchNextPage, isFetchingNextPage, isFetchNextPageError } = useInfiniteNews(activeTab, submittedSeachValue);
 
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -64,11 +64,17 @@ function App() {
           ))
         )}
 
-        <div className="col-span-full text-center" ref={ref}>{
-          isFetchingNextPage &&
-          (<div className="text-gray-500 text-lg md:text-xl animate-pulse">
-            Loading news...
-          </div>
+        <div className="col-span-full text-center" ref={ref}>
+          {isFetchingNextPage && (
+            <div className="text-gray-500 text-lg md:text-xl animate-pulse">
+      Loading more news...
+            </div>
+          )}
+
+          {isFetchNextPageError && (
+            <div className="text-red-500 text-lg md:text-xl font-semibold mt-2">
+      Error loading more news. Try again later.
+            </div>
           )}
         </div>
 
